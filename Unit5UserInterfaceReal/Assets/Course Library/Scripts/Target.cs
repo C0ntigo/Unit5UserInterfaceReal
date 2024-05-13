@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -8,6 +9,7 @@ public class Target : MonoBehaviour
     public int pointValue;
    private GameManager gameManager;
     private Rigidbody targetRb;
+    public TextMeshProUGUI gameOverText;
     private float minSpeed = 12;
     private float maxSpeed = 16;
     private float maxTorque = 10;
@@ -46,9 +48,17 @@ public class Target : MonoBehaviour
         Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
         gameManager.UpdateScore(pointValue);
         Destroy(gameObject);
+        if (gameManager.isGameActive)
+        {
+            
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
     }
 }
